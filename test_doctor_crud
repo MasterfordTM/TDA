@@ -1,0 +1,37 @@
+from ClassDoctorMenu import DoctorCRUD
+
+def main():
+    # Create a DoctorCRUD instance
+    doctor_crud = DoctorCRUD()
+
+    # Create some doctors
+    print("Adding doctors:")
+    doctor1_index = doctor_crud.create("Cardiología", 10, "Hospital A", 50, "9:00 - 17:00", 8)
+    doctor2_index = doctor_crud.create("Pediatría", 5, "Hospital B", 30, "8:00 - 16:00", 10)
+    print(f"Doctor 1 added at index: {doctor1_index}")
+    print(f"Doctor 2 added at index: {doctor2_index}")
+
+    # Read (Get doctor information)
+    print("\nReading doctor information:")
+    print(doctor_crud.read(0).obtener_especialidad())  # Cardiología
+    print(doctor_crud.read(1).obtener_hospital())  # Hospital B
+
+    # Update (Modify doctor information)
+    print("\nUpdating doctor information:")
+    print(doctor_crud.update(0, experiencia=12, hospital="Hospital C"))  # True
+    print(doctor_crud.read(0).obtener_experiencia())  # 12
+    print(doctor_crud.read(0).obtener_hospital())  # Hospital C
+
+    # Delete (Remove a doctor from the list)
+    print("\nDeleting a doctor:")
+    print(doctor_crud.delete(1))  # True
+    print(len(doctor_crud.list_all()))  # 1
+
+    # List all doctors
+    print("\nListing all doctors:")
+    for doctor in doctor_crud.list_all():
+        print(f"Especialidad: {doctor.obtener_especialidad()}, Hospital: {doctor.obtener_hospital()}")
+
+if __name__ == "__main__":
+    main()
+
