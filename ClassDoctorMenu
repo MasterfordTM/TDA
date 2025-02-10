@@ -1,0 +1,63 @@
+from doctor import Doctor
+
+class DoctorCRUD:
+    def __init__(self):
+        self.doctors = []
+
+    def create(self, especialidad, experiencia, hospital, pacientes, horario_consulta, consultas_diarias):
+        """
+        Create a new doctor and add it to the list.
+
+        :return: Index of the newly created doctor
+        """
+        doctor = Doctor(especialidad, experiencia, hospital, pacientes, horario_consulta, consultas_diarias)
+        self.doctors.append(doctor)
+        return len(self.doctors) - 1
+
+    def read(self, index):
+        """
+        Read a doctor's information by index.
+
+        :param index: Index of the doctor in the list
+        :return: Doctor object if found, None otherwise
+        """
+        if 0 <= index < len(self.doctors):
+            return self.doctors[index]
+        return None
+
+    def update(self, index, **kwargs):
+        """
+        Update a doctor's information.
+
+        :param index: Index of the doctor to update
+        :param kwargs: Keyword arguments with the attributes to update
+        :return: True if the doctor was updated successfully, False otherwise
+        """
+        if 0 <= index < len(self.doctors):
+            doctor = self.doctors[index]
+            for key, value in kwargs.items():
+                if hasattr(doctor, f"_{key}"):
+                    setattr(doctor, f"_{key}", value)
+            return True
+        return False
+
+    def delete(self, index):
+        """
+        Delete a doctor from the list.
+
+        :param index: Index of the doctor to delete
+        :return: True if the doctor was deleted successfully, False otherwise
+        """
+        if 0 <= index < len(self.doctors):
+            del self.doctors[index]
+            return True
+        return False
+
+    def list_all(self):
+        """
+        List all doctors.
+
+        :return: List of all doctors
+        """
+        return self.doctors
+
